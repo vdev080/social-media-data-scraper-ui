@@ -1,5 +1,5 @@
 export const config = {
-  runtime: "nodejs18.x",
+  runtime: "nodejs",
 };
 
 export default async function handler(req, res) {
@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const makeResponse = await fetch(
+    const response = await fetch(
       "https://hook.us2.make.com/ut56g3v42kkg1gs74vbyqevgthplqj",
       {
         method: "POST",
@@ -19,15 +19,15 @@ export default async function handler(req, res) {
       }
     );
 
-    if (!makeResponse.ok) {
-      const text = await makeResponse.text();
-      console.error("Make error:", text);
-      return res.status(500).json({ error: "Make webhook failed" });
+    if (!response.ok) {
+      const text = await response.text();
+      console.error("Make webhook error:", text);
+      return res.status(500).json({ error: "Webhook failed" });
     }
 
     return res.status(200).json({ success: true });
   } catch (error) {
-    console.error("API error:", error);
+    console.error("Server error:", error);
     return res.status(500).json({ error: "Internal server error" });
   }
 }
