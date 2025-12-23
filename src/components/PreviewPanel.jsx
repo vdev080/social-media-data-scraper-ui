@@ -24,7 +24,7 @@ const Row = ({ label, value }) => (
   <div className="flex justify-between items-center bg-gray-50 rounded-xl px-4 py-3">
     <span className="text-gray-500">{label}</span>
     <span className="font-medium text-gray-900">
-      {value || "—"}
+      {value || "Blank"}
     </span>
   </div>
 );
