@@ -22,18 +22,20 @@ export default function Home() {
 
       {/* Main Box */}
         <section className="py-14">
-            <div className="max-w-6xl mx-auto bg-white rounded-3xl shadow-[0_20px_60px_-20px_rgba(0,0,0,0.15)] grid grid-cols-1 md:grid-cols-2 overflow-hidden">
+            <div className="max-w-7xl mx-auto px-6 py-12">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
 
-                {/* LEFT */}
-                <div className="p-10 border-r">
-                <FilterForm filters={filters} setFilters={setFilters} />
+                    {/* LEFT – SCROLLABLE */}
+                    <div>
+                    <FilterForm filters={filters} setFilters={setFilters} />
+                    </div>
+
+                    {/* RIGHT – STICKY */}
+                    <div className="sticky top-24">
+                    <PreviewPanel filters={filters} />
+                    </div>
+
                 </div>
-
-                {/* RIGHT */}
-                <div className="p-10 bg-gray-50">
-                <PreviewPanel filters={filters} />
-                </div>
-
             </div>
         </section>
     </div>

@@ -1,23 +1,30 @@
 export default function PreviewPanel({ filters }) {
   return (
-    <div>
-      <h2 className="text-2xl font-extrabold mb-8">
+    <div className="
+      bg-white rounded-3xl p-8
+      shadow-sm ring-1 ring-gray-200
+    ">
+      <h2 className="text-xl font-bold mb-6">
         Selected Data
       </h2>
 
-      <div className="space-y-5">
-        {Object.entries(filters).map(([key, value]) => (
-          <div
-            key={key}
-            className="flex justify-between items-center bg-white px-4 py-3 rounded-xl shadow-sm"
-          >
-            <span className="text-gray-500 capitalize">{key}</span>
-            <span className="font-semibold text-gray-900">
-              {value || "Blank"}
-            </span>
-          </div>
-        ))}
+      <div className="space-y-4 text-sm">
+        <Row label="Platform" value={filters.platform} />
+        <Row label="Country" value={filters.country} />
+        <Row label="Date Range" value={filters.dateRange} />
+        <Row label="Category" value={filters.category} />
+        <Row label="Result Type" value={filters.resultType} />
+        <Row label="Result Count" value={filters.resultCount} />
       </div>
     </div>
   );
 }
+
+const Row = ({ label, value }) => (
+  <div className="flex justify-between items-center bg-gray-50 rounded-xl px-4 py-3">
+    <span className="text-gray-500">{label}</span>
+    <span className="font-medium text-gray-900">
+      {value || "—"}
+    </span>
+  </div>
+);

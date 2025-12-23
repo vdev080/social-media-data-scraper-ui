@@ -2,17 +2,14 @@ import { useEffect, useState } from "react";
 
 export default function FilterForm({ filters, setFilters }) {
 
-  /* ================= HELPERS ================= */
+  /* ------------------ helpers ------------------ */
   const update = (key, value) => {
     setFilters(prev => ({ ...prev, [key]: value }));
   };
 
-  /* ================= COUNTRY STATES ================= */
+  /* ------------------ country API ------------------ */
   const [countries, setCountries] = useState([]);
-  const [query, setQuery] = useState("");
-  const [showDropdown, setShowDropdown] = useState(false);
 
-  /* ================= FETCH COUNTRIES ================= */
   useEffect(() => {
     fetch("https://restcountries.com/v3.1/all")
       .then(res => res.json())
@@ -26,16 +23,7 @@ export default function FilterForm({ filters, setFilters }) {
       .catch(err => console.error("Country API error:", err));
   }, []);
 
-  /* ================= SYNC SELECTED COUNTRY ================= */
-  useEffect(() => {
-    setQuery(filters.country || "");
-  }, [filters.country]);
-
-  const filteredCountries = countries.filter(c =>
-    c.toLowerCase().includes(query.toLowerCase())
-  );
-
-  /* ================= RADIO CARD ================= */
+  /* ------------------ radio card ------------------ */
   const RadioCard = ({ name, value, label }) => {
     const selected = filters[name] === value;
 
@@ -63,7 +51,7 @@ export default function FilterForm({ filters, setFilters }) {
     );
   };
 
-  /* ================= UI ================= */
+  /* ------------------ UI ------------------ */
   return (
     <div className="space-y-10">
 
@@ -82,23 +70,18 @@ export default function FilterForm({ filters, setFilters }) {
         </div>
       </div>
 
-      {/* COUNTRY AUTOCOMPLETE */}
-      <div className="space-y-2 relative">
+      {/* COUNTRY (API + native autocomplete) */}
+      <div className="space-y-2">
         <p className="text-sm font-semibold text-gray-500 uppercase">
           Country
         </p>
 
         <input
           type="text"
+          list="country-list"
           placeholder="Search country"
-          value={query}
-          onChange={(e) => {
-            const val = e.target.value;
-            setQuery(val);
-            setShowDropdown(true);
-            update("country", val);
-          }}
-          onFocus={() => setShowDropdown(true)}
+          value={filters.country}
+          onChange={(e) => update("country", e.target.value)}
           className="
             w-full px-5 py-4 rounded-2xl
             bg-gray-50 ring-1 ring-gray-200
@@ -107,41 +90,59 @@ export default function FilterForm({ filters, setFilters }) {
           "
         />
 
-        {showDropdown && query && (
-          <div
-            className="
-              absolute z-30 w-full mt-2
-              bg-white rounded-2xl shadow-lg
-              ring-1 ring-gray-200
-              max-h-60 overflow-auto
-            "
-          >
-            {filteredCountries.length > 0 ? (
-              filteredCountries.slice(0, 10).map((country, i) => (
-                <button
-                  type="button"
-                  key={i}
-                  onClick={() => {
-                    setQuery(country);
-                    update("country", country);
-                    setShowDropdown(false);
-                  }}
-                  className="
-                    w-full text-left px-5 py-3 text-sm
-                    hover:bg-gray-100 transition
-                  "
-                >
-                  {country}
-                </button>
-              ))
-            ) : (
-              <div className="px-5 py-3 text-sm text-gray-400">
-                No results found
-              </div>
-            )}
-          </div>
-        )}
+        <datalist id="country-list">
+          <option value="India" />
+          <option value="United States" />
+          <option value="United Kingdom" />
+          <option value="Canada" />
+          <option value="Australia" />
+          <option value="New Zealand" />
+          <option value="Germany" />
+          <option value="France" />
+          <option value="Italy" />
+          <option value="Spain" />
+          <option value="Netherlands" />
+          <option value="Sweden" />
+          <option value="Norway" />
+          <option value="Denmark" />
+          <option value="Switzerland" />
+          <option value="Ireland" />
+          <option value="Belgium" />
+          <option value="Austria" />
+          <option value="Portugal" />
+          <option value="Poland" />
+          <option value="Russia" />
+          <option value="China" />
+          <option value="Japan" />
+          <option value="South Korea" />
+          <option value="Indonesia" />
+          <option value="Malaysia" />
+          <option value="Singapore" />
+          <option value="Thailand" />
+          <option value="Vietnam" />
+          <option value="Philippines" />
+          <option value="Sri Lanka" />
+          <option value="Nepal" />
+          <option value="Bhutan" />
+          <option value="Bangladesh" />
+          <option value="Pakistan" />
+          <option value="United Arab Emirates" />
+          <option value="Saudi Arabia" />
+          <option value="Qatar" />
+          <option value="Kuwait" />
+          <option value="Oman" />
+          <option value="South Africa" />
+          <option value="Egypt" />
+          <option value="Nigeria" />
+          <option value="Kenya" />
+          <option value="Brazil" />
+          <option value="Argentina" />
+          <option value="Chile" />
+          <option value="Mexico" />
+
+        </datalist>
       </div>
+
 
       {/* DATE RANGE */}
       <div className="space-y-4">
@@ -167,11 +168,7 @@ export default function FilterForm({ filters, setFilters }) {
           <RadioCard name="category" value="Books" label="Books" />
           <RadioCard name="category" value="Movies" label="Movies" />
           <RadioCard name="category" value="Comedy" label="Comedy" />
-          <RadioCard
-            name="category"
-            value="Artificial Intelligence"
-            label="Artificial Intelligence"
-          />
+          <RadioCard name="category" value="Artificial Intelligence" label="Artificial Intelligence" />
         </div>
       </div>
 
