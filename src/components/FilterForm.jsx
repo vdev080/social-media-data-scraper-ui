@@ -23,6 +23,19 @@ export default function FilterForm({ filters, setFilters }) {
       .catch(err => console.error("Country API error:", err));
   }, []);
 
+  const handleSubmit = async () => {
+  await fetch("https://hook.us2.make.com/ut56g3v42kkg1gs74vbyqevgthplqj", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(filters),
+  });
+
+  alert("Data sent to Make!");
+};
+
+
   /* ------------------ radio card ------------------ */
   const RadioCard = ({ name, value, label }) => {
     const selected = filters[name] === value;
@@ -197,6 +210,7 @@ export default function FilterForm({ filters, setFilters }) {
 
       {/* CTA */}
       <button
+        onClick={handleSubmit}
         className="
           w-full mt-10 py-4 rounded-2xl
           bg-black text-white text-lg font-semibold
@@ -206,6 +220,7 @@ export default function FilterForm({ filters, setFilters }) {
       >
         Scrap Data
       </button>
+
 
     </div>
   );
