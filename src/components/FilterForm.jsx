@@ -139,10 +139,16 @@ export default function FilterForm({ filters, setFilters }) {
 
       <button
         onClick={handleSubmit}
-        className="w-full py-4 rounded-2xl bg-black text-white text-lg font-semibold hover:bg-gray-900"
+        className="
+          w-full mt-10 py-4 rounded-2xl
+          bg-black text-white text-lg font-semibold
+          hover:bg-gray-900 active:scale-[0.98]
+          transition-all
+        "
       >
         Scrap Data
       </button>
+
 
     </div>
   );

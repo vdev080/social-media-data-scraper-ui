@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const response = await fetch(
+    const makeRes = await fetch(
       "https://hook.us2.make.com/ut56g3v42kkg1gs74vbyqevgthplqj",
       {
         method: "POST",
@@ -15,13 +15,15 @@ export default async function handler(req, res) {
       }
     );
 
-    if (!response.ok) {
-      throw new Error("Make webhook failed");
+    if (!makeRes.ok) {
+      const text = await makeRes.text();
+      console.error("Make response:", text);
+      return res.status(500).json({ error: "Make webhook failed" });
     }
 
     return res.status(200).json({ success: true });
-  } catch (error) {
-    console.error("Make error:", error);
-    return res.status(500).json({ error: "Failed to send data to Make" });
+  } catch (err) {
+    console.error("Server error:", err);
+    return res.status(500).json({ error: "Internal server error" });
   }
 }
