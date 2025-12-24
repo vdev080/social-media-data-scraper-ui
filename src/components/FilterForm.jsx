@@ -4,22 +4,21 @@ export default function FilterForm({ filters, setFilters }) {
     setFilters(prev => ({ ...prev, [key]: value }));
   };
 
-  const handleSubmit = async () => {
-    try {
-      const res = await fetch("/api/send-to-make", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(filters),
-      });
-
-      if (!res.ok) throw new Error("Failed");
-
-      alert("Data sent successfully!");
-    } catch (err) {
-      alert("Error sending data");
-      console.error(err);
+const handleSubmit = async () => {
+  await fetch(
+    "https://vdev080.app.n8n.cloud/webhook-test/scraper-input",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(filters),
     }
-  };
+  );
+
+  alert("Data sent to n8n!");
+};
+
 
   const RadioCard = ({ name, value, label }) => {
     const selected = filters[name] === value;
