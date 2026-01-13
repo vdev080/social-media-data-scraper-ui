@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    await fetch("https://vdev080.app.n8n.cloud/webhook/scraper-input", {
+    await fetch("https://vdev0800.app.n8n.cloud/webhook-test/f03d83a6-ec7d-4b3a-8cf5-27a2e7af5c51", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
