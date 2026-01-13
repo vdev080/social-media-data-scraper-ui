@@ -4,17 +4,17 @@ export default async function handler(req, res) {
   }
 
   try {
-    const response = await fetch(
-      "https://vdev0800.app.n8n.cloud/webhook-test/scraper-input",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(req.body),
-      }
-    );
+    await fetch("https://vdev080.app.n8n.cloud/webhook/scraper-input", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(req.body),
+    });
 
     return res.status(200).json({ success: true });
   } catch (error) {
-    return res.status(500).json({ error: "Make webhook failed" });
+    console.error(error);
+    return res.status(500).json({ error: "n8n webhook failed" });
   }
 }
