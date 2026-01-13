@@ -5,7 +5,7 @@ export default async function handler(req, res) {
 
   try {
     const response = await fetch(
-      "https://hook.us2.make.com/ut56g3v42kkgj1gs74vbygvevtghplqj",
+      "https://vdev0800.app.n8n.cloud/webhook-test/scraper-input",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
