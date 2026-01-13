@@ -6,7 +6,7 @@ export default function FilterForm({ filters, setFilters }) {
 
 const handleSubmit = async () => {
   await fetch(
-    "https://vdev0800.app.n8n.cloud/webhook-test/scraper-input",
+    "https://vdev0800.app.n8n.cloud/webhook/scraper-input",
     {
       method: "POST",
       headers: {
